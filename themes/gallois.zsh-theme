@@ -18,7 +18,7 @@ else
   if which rbenv &> /dev/null; then
     RPS1='$(git_custom_status)%{$fg[red]%}[`rbenv version | sed -e "s/ (set.*$//"`]%{$reset_color%} $EPS1'
   else
-    RPS1='$(git_custom_status) $EPS1'
+    RPS1='$(git_custom_status) $(virtualenv_prompt_info)%{$reset_color%} $EPS1'
   fi
 fi
 
