@@ -13,7 +13,7 @@ local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
 my_git_coloring_prompt_info() {
 	FULLINDEX=$(command git status 2> /dev/null) || $(echo "")
-	BEGIN=" ${rt_orange}["
+	BEGIN="${rt_orange}["
 	if $(echo "$FULLINDEX" | grep '^#.*behind' &> /dev/null); then
 		echo "$BEGIN$rt_red" && return
 	fi
@@ -111,16 +111,21 @@ eval rt_lightgreen='$FG[002]'
 # primary prompt
 # $(my_git_coloring_prompt_info)$(git_prompt_info)$(my_git_prompt_status) \
 #PROMPT='$FG[237]---------------------------------------------------------------------%{$reset_color%}
-PROMPT='$FG[032]%~\
-\
-%{$reset_color%}%(!.#.›) '
+
+local user=`whoami`
+if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+	PROMPT='${rt_orange}$user@%m $FG[032]%~%{$reset_color%}%(!.#.›) '
+else
+	PROMPT='$FG[032]%~%{$reset_color%}%(!.#.›) '
+fi
+# PROMPT='$FG[032]%~%{$reset_color%}%(!.#.›) '
 PROMPT2='%{$fg[red]%}\ %{$reset_color%}'
 RPS1='${return_code}'
 
 # right prompt
 RPROMPT='$rt_gray%n@%m%{$reset_color%}%'
 RPROMPT='$(virtualenv_prompt_info)$(my_git_coloring_prompt_info)$(git_prompt_info)$(my_git_prompt_status)\
-%{$reset_color%}%{$reset_color%}%'
+${rt_orange}[${rt_lightgreen}%*${rt_orange}]%{$reset_color%}%'
 
 
 # git settings

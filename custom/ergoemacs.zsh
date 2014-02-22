@@ -14,9 +14,9 @@ bindkey "^[g" kill-line
 bindkey "^[h" beginning-of-line
 bindkey "^[H" end-of-line
 bindkey "^[z" undo
-bindkey "^[Y" history-search-forward
+bindkey "^[k" history-search-forward
 # Uncomment if you are not using zaw.
-#bindkey "^[y" history-search-backward
+bindkey "^[i" history-search-backward
 bindkey "^[c" copy-region-as-kill
 bindkey "^[v" yank
 bindkey "^[x" kill-region
